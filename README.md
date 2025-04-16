@@ -61,6 +61,11 @@ The course covers the core components of identity and access management in AWS, 
 ---
 
 ## 📸 Screenshots
+![Screenshot 2025-04-16 091943](https://github.com/user-attachments/assets/5aef8004-5f14-4aec-a961-469dc5230b36)
+![Screenshot 2025-04-16 091932](https://github.com/user-attachments/assets/55ba5b41-27c9-4050-9387-cf3ba1aef5ad)
+![Screenshot 2025-04-16 091916](https://github.com/user-attachments/assets/4b43ad08-1885-4d12-b0a3-c37565f0ab16)
+![Screenshot 2025-04-16 091901](https://github.com/user-attachments/assets/2f7c8917-ea88-40c9-bdd2-ec56290e146d)
+![Screenshot 2025-04-16 091833](https://github.com/user-attachments/assets/7a762407-9157-4a55-83b5-3c4dc844e9a4)
 
 
 
