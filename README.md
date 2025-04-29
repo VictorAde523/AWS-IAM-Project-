@@ -23,17 +23,87 @@ The course covers the core components of identity and access management in AWS, 
 
 Here’s a breakdown of the hands-on work I’ve completed so far:
 
-- **Created IAM users and user groups:** Set up named user accounts for individuals and created user groups (`Admins`, `BillingAdmins`) to manage permissions collectively.
-- **Attached policies:** Assigned `AdministratorAccess` to the Admin group to grant full permissions and confirmed user inheritance via group attachment.
-- **Tested group/user policy application:** Verified effective permissions using the IAM Policy Simulator tool.
-- **Created and applied a custom policy:** Developed `RDSLimitedAccess`, which restricted RDS actions to specific DB tags and department group. Applied this to the `DBAdmins` group and confirmed it worked with IAM user "Emily."
-- **Configured AWS CLI access:** Generated and tested access keys by configuring the CLI (`aws configure`) and attempting commands like `aws s3 ls`. Adjusted credentials and paths when troubleshooting CLI access.
-- **Enabled MFA and secured root user:** Enabled MFA for the root user and users with console access. Verified console activity and access key usage history.
-- **Debugged permission issues:** Resolved EC2 and S3 access issues by reviewing policy statements and using the AWS Policy Generator to modify or restrict permissions.
-- **Created S3 bucket policies:** Denied access to a user (`Connor`) via a custom S3 bucket policy generated from the AWS Policy Generator, and tested it through the console.
-- **Created RDS instances:** Launched two RDS instances using MySQL in `us-east-1`, verified their configuration, and backed them up.
-- **Deleted RDS instances:** Performed cleanup by initiating deletion of the RDS instances once lab testing was complete.
-- **Set up an AWS Organization:** Created an AWS Organization and added a second AWS account under a root OU for practicing account management and central governance.
+### 1. IAM Users and Groups
+- ✅ **Created IAM users** and user groups (`Admins`, `BillingAdmins`):
+  - Set up named user accounts for individuals and created user groups to manage permissions collectively.
+
+- ✅ **Attached policies** to user groups:
+  - Assigned `AdministratorAccess` to the `Admins` group for full access, simplifying permission management for multiple users.
+
+- ✅ **Tested group/user policy application**:
+  - Used the IAM Policy Simulator tool to verify effective permissions for users and groups.
+
+- ✅ **Created and applied a custom policy** (`RDSLimitedAccess`):
+  - Developed a custom policy restricting RDS actions based on DB tags and department groups. Applied it to the `DBAdmins` group and tested it with the IAM user "Emily."
+
+- ✅ **Configured AWS CLI access**:
+  - Generated access keys and tested access via the AWS CLI with commands like `aws s3 ls`.
+
+- ✅ **Enabled MFA** for root and console users:
+  - Secured the root user and console users by enabling MFA, enhancing security.
+
+- ✅ **Debugged permission issues**:
+  - Resolved EC2 and S3 access issues by reviewing IAM policy statements and using the AWS Policy Generator.
+
+- ✅ **Created S3 bucket policies**:
+  - Generated a custom S3 bucket policy to deny access to a user (`Connor`) and tested it.
+
+- ✅ **Created RDS instances**:
+  - Launched two MySQL RDS instances in the `us-east-1` region, verified their configuration, and backed them up.
+
+- ✅ **Deleted RDS instances**:
+  - Performed cleanup by deleting the RDS instances after testing was completed.
+
+- ✅ **Set up an AWS Organization**:
+  - Created an AWS Organization and added a second account under a root OU for practicing account management.
+
+> These tasks allowed me to practice and solidify the concepts of managing IAM users, creating custom policies, troubleshooting access issues, and setting up cloud resources such as RDS and S3.
+
+### 2. Working with IAM Roles
+- ✅ **Created IAM roles** for AWS services such as EC2 and Lambda:
+  - Defined roles to grant EC2 instances permissions to access AWS resources like S3 without needing AWS credentials stored locally.
+  
+- ✅ **Assigned trust relationships** to define which entities can assume the roles:
+  - Configured trust relationships to allow EC2 instances and other services to assume specific roles based on defined policies.
+
+- ✅ **Attached permission policies** to roles:
+  - Added policies such as `AmazonS3ReadOnlyAccess` to roles to allow EC2 instances to interact with resources securely.
+
+- ✅ **Launched an EC2 instance** with an assigned IAM role:
+  - Verified that EC2 could access S3 without storing AWS credentials locally by associating the IAM role with the instance.
+
+- ✅ **Verified EC2 access to S3**:
+  - Confirmed that the EC2 instance could securely access S3 resources without local credential management, using the permissions attached to the IAM role.
+
+- ✅ **Used AWS CLI to assume roles with `sts:AssumeRole`**:
+  - Practiced using the `sts:AssumeRole` command to temporarily assume roles and test cross-account access scenarios.
+
+- ✅ **Reviewed role usage via CloudTrail**:
+  - Explored CloudTrail to monitor IAM role usage and track the activities associated with role assumptions.
+
+- ✅ **Practiced cross-account role creation and trust configuration**:
+  - Created cross-account roles and configured trust policies to allow secure access between AWS accounts.
+
+> These tasks helped develop a deeper understanding of how to configure, manage, and monitor IAM roles in AWS, which are critical for securely managing access to AWS resources.
+
+
+### 3. Directory Services and Federation
+- ✅ **Created a Microsoft AD directory** in the AWS Directory Service.  
+  - Configured the directory with necessary parameters like **directory name**, **DNS name**, **NetBIOS name**, and **admin password**.  
+  - Waited for the directory to become **Active** before proceeding with further steps.
+  
+- ✅ **Created IAM roles for the directory** to provide the required permissions for EC2 instances and administrative users:  
+  - **EC2Domain** role:  
+    - Attached the following permissions:
+      - `AmazonSSMManagedInstanceCore`: For enabling Systems Manager to interact with EC2 instances.
+      - `AmazonSSMDirectoryServiceAccess`: For enabling EC2 instances to join the domain.
+  
+  - **AD-PowerUser** role:
+    - Attached the `PowerAccess` policy to grant elevated privileges for domain management.
+
+- ✅ **Created an Application Access URL** for accessing domain-integrated applications.
+
+> These steps help to integrate Microsoft AD into AWS, configure roles with necessary permissions for EC2 instances and admins, and set up access for applications linked to the AD directory.
 
 ---
 
@@ -88,11 +158,6 @@ Here’s a breakdown of the hands-on work I’ve completed so far:
 
 ---
 
-## 💡 Why This Repo?
-
-This is both a **learning record** and a **personal reference** for future IAM and access control projects on AWS. I also aim to showcase practical knowledge to potential employers or collaborators.
-
----
 
 ## 📅 Timeline
 
@@ -101,6 +166,8 @@ This is both a **learning record** and a **personal reference** for future IAM a
 | 2025-04-15 | Created IAM Users & Groups    |
 | 2025-04-16 | Configured RDS & Custom Policies |
 | 2025-04-16 | Set Up Organizations & Denied S3 Access |
+| 2025-04-29 | Worked with IAM Roles (created EC2Domain & Lambda roles, configured trust policies, launched EC2 with role, assumed roles via CLI, tested cross-account access, audited via CloudTrail) |
+| 2025-04-29 | Configured Directory Services & Federation (provisioned Microsoft AD, created EC2Domain & AD-PowerUser roles, set up Application Access URL) |
 
 ---
 
